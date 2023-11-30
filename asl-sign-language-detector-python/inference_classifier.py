@@ -18,7 +18,7 @@ model_dict = pickle.load(open('./model.p', 'rb'))
 model = model_dict['model']
 
 # --------------ASL Image Setup--------------------------------------------
-asl_image_path = 'sign-language-detector-python/asl.png'
+asl_image_path = 'asl-sign-language-detector-python/asl.png'
 asl_image = cv2.imread(asl_image_path)
 
 # Customizable dimensions for ASL image
@@ -77,7 +77,7 @@ def draw_display_text(frame, text, status_dict):
             x += 20  # Space between words
 
 #-----------Background Image----------------------------------------------------
-background_image_path = 'sign-language-detector-python\dojo_2.png'
+background_image_path = 'asl-sign-language-detector-python\dojo_2.png'
 background_image = cv2.imread(background_image_path)
 
 # Resize the background image to be larger
