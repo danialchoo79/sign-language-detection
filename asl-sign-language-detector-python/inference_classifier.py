@@ -295,9 +295,6 @@ while True:
                 if predicted_character == 'J' or predicted_character == 'Z':
                     predicted_character = None
 
-                # if predicted_character == "I" and motion_out == "j":
-                #     predicted_character = motion_out
-
                 if motion_out == 'z' or motion_out == 'j':
                     predicted_character = motion_out
 
