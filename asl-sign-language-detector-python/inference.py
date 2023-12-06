@@ -26,7 +26,7 @@ model.load_state_dict(state_dict)
 print('Detection Model Loaded.')
 
 temporal_model = TrailClassifier().to(DEVICE)
-temporal_state_dict = torch.load('final_trail_model_2.pth')
+temporal_state_dict = torch.load('final_trail_model.pth')
 temporal_model.load_state_dict(temporal_state_dict)
 print('Temporal Model Loaded.')
 
@@ -188,8 +188,13 @@ def predict_motion(trail_img, model):
     model.eval()
     with torch.no_grad():
         input_img = torch.tensor(trail_img).unsqueeze(0).to(DEVICE) / 255
-        pred = torch.argmax(model(input_img).squeeze(0).to('cpu')).item()
-    return label_map[pred]
+        out = model(input_img).squeeze(0).to('cpu')
+        probs = torch.nn.Softmax()(out)
+        max_prob, pred = torch.max(probs, dim=0)
+    if max_prob > 0.5:
+        return label_map[pred.item()]
+    else:
+        return 'o'
 
 coords_queue = []
 
@@ -260,13 +265,18 @@ while True:
 
         # Predict using temporal model
         motion_out = predict_motion(trail_img, temporal_model)
-        if motion_out != 'o':
-            print(motion_out)
 
-        if motion_out == 'z':
-            predicted_character = 'Z'
-        elif motion_out == 'j':
-            predicted_character = 'J'
+        # Agreement between models
+        if predicted_character == 'Z':
+            if motion_out == 'z':
+                predicted_character = 'Z'
+            else:
+                predicted_character = None
+        if predicted_character in ['J', 'I']:
+            if motion_out == 'j':
+                predicted_character = 'J'
+            else:
+                predicted_character = 'I'
 
         if predicted_character:
             # Update the prediction status
@@ -331,7 +341,6 @@ while True:
 
     background_image[:webcam_height, webcam_start_x:webcam_start_x + webcam_width] = frame
     background_image[:asl_height, asl_start_x:asl_start_x + asl_width] = asl_image_with_rectangle
-
 
     cv2.imshow('frame', background_image)
 
