@@ -1,0 +1,9 @@
+[submodule "Yolo_ASL"]
+	path = Yolo_ASL
+	url = https://github.com/ry2001/Yolo_ASL
+[submodule "SignDojo-Landmark-Classification"]
+	path = SignDojo-Landmark-Classification
+	url = https://github.com/alift99/SignDojo-Landmark-Classification
+[submodule "SignDojo-Temporal-Classification"]
+	path = SignDojo-Temporal-Classification
+	url = https://github.com/alift99/SignDojo-Temporal-Classification
