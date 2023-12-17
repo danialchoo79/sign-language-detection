@@ -13,6 +13,6 @@ Repository Structure:
 - SignDojo-Landmark-Classification
     - Code for landmark classifier model training & evaluation
 - SignDojo-Temporal-Classification
-    - Code for LSTM and TrailImage classifier training & evaluation
+    - Code for LSTM and Trail-Image classifier training & evaluation
 - Yolo_ASL
     - Code for YOLOv8 training & evaluation
