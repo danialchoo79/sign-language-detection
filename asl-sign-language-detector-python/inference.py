@@ -21,17 +21,17 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Load the trained model
 model = LinearClassifier()
-state_dict = torch.load('linear_model_2.pth')
+state_dict = torch.load('models/linear_model_2.pth')
 model.load_state_dict(state_dict)
 print('Detection Model Loaded.')
 
 temporal_model = TrailClassifier().to(DEVICE)
-temporal_state_dict = torch.load('final_trail_model.pth')
+temporal_state_dict = torch.load('models/final_trail_model.pth')
 temporal_model.load_state_dict(temporal_state_dict)
 print('Temporal Model Loaded.')
 
 # --------------ASL Image Setup--------------------------------------------
-asl_image_path = 'asl-sign-language-detector-python/asl.png'
+asl_image_path = 'assets/asl.png'
 asl_image = cv2.imread(asl_image_path)
 
 # Customizable dimensions for ASL image
@@ -90,7 +90,7 @@ def draw_display_text(frame, text, status_dict):
             x += 20  # Space between words
 
 #-----------Background Image----------------------------------------------------
-background_image_path = 'asl-sign-language-detector-python\dojo_2.png'
+background_image_path = 'assets/dojo_2.png'
 background_image = cv2.imread(background_image_path)
 
 # Resize the background image to be larger
@@ -111,7 +111,7 @@ asl_image_with_rectangle = asl_image.copy()
 pygame.mixer.init()
 
 # Load your music file
-music_file_path = '[MapleStory BGM] Mu Lung Dojo 1.mp3'
+music_file_path = 'assets/[MapleStory BGM] Mu Lung Dojo 1.mp3'
 pygame.mixer.music.load(music_file_path)
 
 # Set the volume (0.0 to 1.0)
